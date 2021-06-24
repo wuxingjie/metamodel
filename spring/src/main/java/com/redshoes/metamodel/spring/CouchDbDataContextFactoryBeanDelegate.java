@@ -19,7 +19,7 @@
 package com.redshoes.metamodel.spring;
 
 import com.redshoes.metamodel.DataContext;
-import org.apache.metamodel.DataContextFactory;
+import com.redshoes.metamodel.DataContextFactory;
 import com.redshoes.metamodel.couchdb.CouchDbDataContext;
 import com.redshoes.metamodel.util.SimpleTableDef;
 
