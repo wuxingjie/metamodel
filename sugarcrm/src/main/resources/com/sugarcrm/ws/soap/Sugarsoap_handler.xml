@@ -22,7 +22,7 @@ under the License.
      xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <javaee:handler-chain>
     <javaee:handler>
-      <javaee:handler-class>org.apache.metamodel.sugarcrm.LoggingMessageHandler</javaee:handler-class>
+      <javaee:handler-class>com.redshoes.metamodel.sugarcrm.LoggingMessageHandler</javaee:handler-class>
     </javaee:handler>
   </javaee:handler-chain>
 </javaee:handler-chains>

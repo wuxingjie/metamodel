@@ -26,7 +26,7 @@ under the License.
 			<handler-chain>
 				<handler>
 					<handler-name>LoggingMessageHandler</handler-name>
-					<handler-class>org.apache.metamodel.sugarcrm.LoggingMessageHandler</handler-class>
+					<handler-class>com.redshoes.metamodel.sugarcrm.LoggingMessageHandler</handler-class>
 				</handler>
 			</handler-chain>
 		</handler-chains>

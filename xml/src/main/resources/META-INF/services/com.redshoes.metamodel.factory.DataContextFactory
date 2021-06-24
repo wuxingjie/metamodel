@@ -1,0 +1,2 @@
+com.redshoes.metamodel.xml.XmlSaxDataContextFactory
+com.redshoes.metamodel.xml.XmlDomDataContextFactory
