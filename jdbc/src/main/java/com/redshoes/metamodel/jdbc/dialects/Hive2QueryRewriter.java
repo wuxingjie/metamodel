@@ -18,6 +18,7 @@
  */
 package com.redshoes.metamodel.jdbc.dialects;
 
+import com.redshoes.metamodel.schema.ColumnSize;
 import com.redshoes.metamodel.schema.ColumnType;
 import com.redshoes.metamodel.jdbc.JdbcDataContext;
 
@@ -31,7 +32,7 @@ public class Hive2QueryRewriter extends LimitOffsetQueryRewriter {
     }
 
     @Override
-    public String rewriteColumnType(ColumnType columnType, Integer columnSize) {
+    public String rewriteColumnType(ColumnType columnType, ColumnSize columnSize) {
         if (columnType == ColumnType.INTEGER) {
             return "INT";
         }
@@ -43,7 +44,7 @@ public class Hive2QueryRewriter extends LimitOffsetQueryRewriter {
         // Hive does not support VARCHAR without a width, nor VARCHAR(MAX).
         // Returning max allowable column size instead.
         if (columnType == ColumnType.VARCHAR && columnSize == null) {
-            return super.rewriteColumnType(columnType, 65535);
+            return super.rewriteColumnType(columnType, ColumnSize.of(65535));
         }
         return super.rewriteColumnType(columnType, columnSize);
     }

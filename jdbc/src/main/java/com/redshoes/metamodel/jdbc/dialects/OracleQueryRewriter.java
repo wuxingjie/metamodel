@@ -20,6 +20,7 @@ package com.redshoes.metamodel.jdbc.dialects;
 
 import com.redshoes.metamodel.jdbc.JdbcDataContext;
 import com.redshoes.metamodel.query.FilterItem;
+import com.redshoes.metamodel.schema.ColumnSize;
 import com.redshoes.metamodel.schema.ColumnType;
 
 /**
@@ -43,12 +44,12 @@ public class OracleQueryRewriter extends OffsetFetchQueryRewriter {
     }
 
     @Override
-    public String rewriteColumnType(ColumnType columnType, Integer columnSize) {
+    public String rewriteColumnType(ColumnType columnType, ColumnSize columnSize) {
         if (columnType == ColumnType.NUMBER || columnType == ColumnType.NUMERIC || columnType == ColumnType.DECIMAL) {
             // as one of the only relational databases out there, Oracle has a
             // NUMBER type. For this reason NUMBER would be replaced by the
             // super-type's logic, but we handle it specifically here.
-            super.rewriteColumnTypeInternal("NUMBER", columnSize);
+            super.rewriteColumnTypeInternal("NUMBER", columnSize.getColumnSizeContent());
         }
         if (columnType == ColumnType.BOOLEAN || columnType == ColumnType.BIT) {
             // Oracle has no boolean type, but recommends NUMBER(3) or CHAR(1).

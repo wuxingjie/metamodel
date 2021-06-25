@@ -88,17 +88,17 @@ public class JdbcDataContext extends AbstractDataContext implements UpdateableDa
     public static final String SYSTEM_PROPERTY_COMPILED_QUERY_POOL_TIME_BETWEEN_EVICTION_RUNS_MILLIS =
             "metamodel.jdbc.compiledquery.pool.eviction.period.millis";
 
-    public static final String DATABASE_PRODUCT_POSTGRESQL = "PostgreSQL";
-    public static final String DATABASE_PRODUCT_MYSQL = "MySQL";
-    public static final String DATABASE_PRODUCT_HSQLDB = "HSQL Database Engine";
-    public static final String DATABASE_PRODUCT_H2 = "H2";
-    public static final String DATABASE_PRODUCT_SQLSERVER = "Microsoft SQL Server";
-    public static final String DATABASE_PRODUCT_DB2 = "DB2";
-    public static final String DATABASE_PRODUCT_DB2_PREFIX = "DB2/";
-    public static final String DATABASE_PRODUCT_ORACLE = "Oracle";
-    public static final String DATABASE_PRODUCT_HIVE = "Apache Hive";
-    public static final String DATABASE_PRODUCT_SQLITE = "SQLite";
-    public static final String DATABASE_PRODUCT_IMPALA = "Impala";
+    public static final String DATABASE_PRODUCT_POSTGRESQL = DatabaseType.DATABASE_PRODUCT_POSTGRESQL;
+    public static final String DATABASE_PRODUCT_MYSQL = DatabaseType.DATABASE_PRODUCT_MYSQL;
+    public static final String DATABASE_PRODUCT_HSQLDB = DatabaseType.DATABASE_PRODUCT_HSQLDB;
+    public static final String DATABASE_PRODUCT_H2 = DatabaseType.DATABASE_PRODUCT_H2;
+    public static final String DATABASE_PRODUCT_SQLSERVER = DatabaseType.DATABASE_PRODUCT_SQLSERVER;
+    public static final String DATABASE_PRODUCT_DB2 = DatabaseType.DATABASE_PRODUCT_DB2;
+    public static final String DATABASE_PRODUCT_DB2_PREFIX = DatabaseType.DATABASE_PRODUCT_DB2_PREFIX;
+    public static final String DATABASE_PRODUCT_ORACLE = DatabaseType.DATABASE_PRODUCT_ORACLE;
+    public static final String DATABASE_PRODUCT_HIVE = DatabaseType.DATABASE_PRODUCT_HIVE;
+    public static final String DATABASE_PRODUCT_SQLITE = DatabaseType.DATABASE_PRODUCT_SQLITE;
+    public static final String DATABASE_PRODUCT_IMPALA = DatabaseType.DATABASE_PRODUCT_IMPALA;
 		
     private static final String DEFAULT_SCHEMA_NAME_SQLSERVER = "dbo";
 
@@ -113,6 +113,7 @@ public class JdbcDataContext extends AbstractDataContext implements UpdateableDa
 
     private final FetchSizeCalculator _fetchSizeCalculator;
     private final Connection _connection;
+    private String _defaultSchemaName;
     private final DataSource _dataSource;
     private final TableType[] _tableTypes;
     private final String _catalogName;
@@ -282,6 +283,10 @@ public class JdbcDataContext extends AbstractDataContext implements UpdateableDa
      */
     public JdbcDataContext(Connection connection) {
         this(connection, TableType.DEFAULT_TABLE_TYPES, null);
+    }
+    public JdbcDataContext(Connection connection, String defaultSchemaName){
+        this(connection, TableType.DEFAULT_TABLE_TYPES, null);
+        this._defaultSchemaName = defaultSchemaName;
     }
 
     /**
@@ -518,6 +523,7 @@ public class JdbcDataContext extends AbstractDataContext implements UpdateableDa
         return dataSet;
     }
 
+    @Override
     public DataSet executeQuery(Query query) throws MetaModelException {
         final Connection connection = getConnection();
         return executeQuery(connection, query, true);
@@ -650,7 +656,11 @@ public class JdbcDataContext extends AbstractDataContext implements UpdateableDa
         }
     }
 
+    @Override
     public String getDefaultSchemaName() {
+        if(this._defaultSchemaName != null){
+            return this._defaultSchemaName;
+        }
         // Use a boolean to check if the result has been
         // found, because a schema name can actually be
         // null (for example in the case of Firebird

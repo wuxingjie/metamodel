@@ -26,6 +26,7 @@ import java.util.ListIterator;
 import java.util.Set;
 
 import com.redshoes.metamodel.jdbc.JdbcDataContext;
+import com.redshoes.metamodel.schema.ColumnSize;
 import com.redshoes.metamodel.schema.ColumnType;
 import com.redshoes.metamodel.util.CollectionUtils;
 import com.redshoes.metamodel.query.AggregateFunction;
@@ -88,7 +89,7 @@ public class DefaultQueryRewriter extends AbstractQueryRewriter {
     }
 
     @Override
-    public String rewriteColumnType(ColumnType columnType, Integer columnSize) {
+    public String rewriteColumnType(ColumnType columnType, ColumnSize columnSize) {
         if (columnType == ColumnType.STRING) {
             // convert STRING to VARCHAR as the default SQL type for strings
             return rewriteColumnType(ColumnType.VARCHAR, columnSize);

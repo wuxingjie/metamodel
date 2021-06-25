@@ -26,10 +26,7 @@ import java.util.Map;
 import com.redshoes.metamodel.jdbc.JdbcDataContext;
 import com.redshoes.metamodel.query.FromItem;
 import com.redshoes.metamodel.query.Query;
-import com.redshoes.metamodel.schema.Column;
-import com.redshoes.metamodel.schema.ColumnType;
-import com.redshoes.metamodel.schema.Schema;
-import com.redshoes.metamodel.schema.Table;
+import com.redshoes.metamodel.schema.*;
 import org.postgresql.util.PGobject;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -62,7 +59,7 @@ public class PostgresqlQueryRewriter extends LimitOffsetQueryRewriter {
     }
 
     @Override
-    public String rewriteColumnType(ColumnType columnType, Integer columnSize) {
+    public String rewriteColumnType(ColumnType columnType, ColumnSize columnSize) {
         if (columnType == ColumnType.BLOB) {
             return "bytea";
         }

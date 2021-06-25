@@ -35,7 +35,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * {@link CreateTableBuilder} implementation that issues a SQL CREATE TABLE
+ * {@link } implementation that issues a SQL CREATE TABLE
  * statement.
  */
 final class JdbcCreateTableBuilder extends AbstractTableCreationBuilder<JdbcUpdateCallback> {
@@ -96,16 +96,17 @@ final class JdbcCreateTableBuilder extends AbstractTableCreationBuilder<JdbcUpda
             sb.append(' ');
             final String nativeType = column.getNativeType();
             final Integer columnSize = column.getColumnSize();
+            final String columnSizeContent = column.getSizeContent();
             if (nativeType == null) {
                 ColumnType columnType = column.getType();
                 if (columnType == null) {
                     columnType = ColumnType.VARCHAR;
                 }
-                final String columnTypeString = queryRewriter.rewriteColumnType(columnType, columnSize);
+                final String columnTypeString = queryRewriter.rewriteColumnType(columnType, column.getSizeObj());
                 sb.append(columnTypeString);
             } else {
                 sb.append(nativeType);
-                if (columnSize != null) {
+                if(!(columnSizeContent == null || columnSizeContent.length() <= 0)){
                     sb.append('(');
                     sb.append(columnSize.intValue());
                     sb.append(')');
@@ -134,6 +135,8 @@ final class JdbcCreateTableBuilder extends AbstractTableCreationBuilder<JdbcUpda
             }
         }
         sb.append(")");
+
+        logger.info("---------------> table created!",sb.toString());
         return sb.toString();
     }
 

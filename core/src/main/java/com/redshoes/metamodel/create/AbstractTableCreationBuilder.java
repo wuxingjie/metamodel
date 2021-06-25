@@ -115,10 +115,10 @@ public abstract class AbstractTableCreationBuilder<U extends UpdateCallback> imp
             if (type != null) {
                 sb.append(' ');
                 sb.append(type.toString());
-                Integer columnSize = column.getColumnSize();
-                if (columnSize != null) {
+                final String columnSizeContent = column.getSizeContent();
+                if(!(columnSizeContent == null || columnSizeContent.length() <= 0)){
                     sb.append('(');
-                    sb.append(columnSize);
+                    sb.append(columnSizeContent);
                     sb.append(')');
                 }
             }

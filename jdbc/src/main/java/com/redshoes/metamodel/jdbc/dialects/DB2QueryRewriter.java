@@ -25,6 +25,7 @@ import com.redshoes.metamodel.query.FilterItem;
 import com.redshoes.metamodel.query.OperatorType;
 import com.redshoes.metamodel.query.Query;
 import com.redshoes.metamodel.query.SelectItem;
+import com.redshoes.metamodel.schema.ColumnSize;
 import com.redshoes.metamodel.schema.ColumnType;
 import com.redshoes.metamodel.util.FormatHelper;
 import com.redshoes.metamodel.util.TimeComparator;
@@ -89,7 +90,7 @@ public class DB2QueryRewriter extends RowNumberQueryRewriter {
     }
 
     @Override
-    public String rewriteColumnType(ColumnType columnType, Integer columnSize) {
+    public String rewriteColumnType(ColumnType columnType, ColumnSize columnSize) {
         if (columnType == ColumnType.BOOLEAN || columnType == ColumnType.BIT) {
             return "SMALLINT";
         }

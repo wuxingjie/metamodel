@@ -20,10 +20,7 @@ package com.redshoes.metamodel.dialects;
 
 import static com.redshoes.metamodel.jdbc.JdbcDataContext.DATABASE_PRODUCT_SQLSERVER;
 
-import com.redshoes.metamodel.schema.ColumnType;
-import com.redshoes.metamodel.schema.MutableColumn;
-import com.redshoes.metamodel.schema.MutableSchema;
-import com.redshoes.metamodel.schema.MutableTable;
+import com.redshoes.metamodel.schema.*;
 import com.redshoes.metamodel.jdbc.JdbcDataContext;
 import com.redshoes.metamodel.jdbc.dialects.SQLServerQueryRewriter;
 import com.redshoes.metamodel.query.FilterItem;
@@ -67,7 +64,7 @@ public class SQLServerQueryRewriterTest extends TestCase {
     }
 
     public void testRewriteColumnTypeVarchar() throws Exception {
-        assertEquals("VARCHAR(128)", qr.rewriteColumnType(ColumnType.VARCHAR, 128));
+        assertEquals("VARCHAR(128)", qr.rewriteColumnType(ColumnType.VARCHAR, ColumnSize.of(128)));
         assertEquals("VARCHAR(MAX)", qr.rewriteColumnType(ColumnType.VARCHAR, null));
     }
 

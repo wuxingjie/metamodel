@@ -24,6 +24,7 @@ import java.sql.SQLException;
 import java.sql.Types;
 
 import com.redshoes.metamodel.schema.Column;
+import com.redshoes.metamodel.schema.ColumnSize;
 import com.redshoes.metamodel.schema.ColumnType;
 import com.redshoes.metamodel.jdbc.JdbcDataContext;
 import com.redshoes.metamodel.query.AggregateFunction;
@@ -136,11 +137,10 @@ public interface IQueryRewriter {
      * @param columnType
      *            the (non-null) {@link ColumnType} to rewrite
      * @param columnSize
-     *            the (possibly null) column size that may or may not have been
-     *            specified
+     *            字段长度对象包含总长度与精度位 eg. decimal(38,19)
      * @return
      */
-    public String rewriteColumnType(ColumnType columnType, Integer columnSize);
+    public String rewriteColumnType(ColumnType columnType, ColumnSize columnSize);
 
     /**
      * Gets the column type for a specific JDBC type (as defined in

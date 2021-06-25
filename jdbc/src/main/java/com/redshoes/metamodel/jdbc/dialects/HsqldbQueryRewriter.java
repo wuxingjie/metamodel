@@ -23,6 +23,7 @@ import com.redshoes.metamodel.query.Query;
 import com.redshoes.metamodel.query.SelectClause;
 import com.redshoes.metamodel.query.SelectItem;
 import com.redshoes.metamodel.schema.Column;
+import com.redshoes.metamodel.schema.ColumnSize;
 import com.redshoes.metamodel.schema.ColumnType;
 import com.redshoes.metamodel.jdbc.JdbcDataContext;
 
@@ -36,7 +37,7 @@ public class HsqldbQueryRewriter extends DefaultQueryRewriter {
     }
 
     @Override
-    public String rewriteColumnType(ColumnType columnType, Integer columnSize) {
+    public String rewriteColumnType(ColumnType columnType, ColumnSize columnSize) {
         if (columnType == ColumnType.BIT) {
             return "BOOLEAN";
         }

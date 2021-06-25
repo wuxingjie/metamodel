@@ -184,7 +184,17 @@ public final class ImmutableColumn extends AbstractColumn implements Serializabl
     public Integer getDecimalDigits() {
         return decimalDigits;
     }
-    
+
+    @Override
+    public String getSizeContent() {
+        throw new UnsupportedOperationException("还未实现");
+    }
+
+    @Override
+    public ColumnSize getSizeObj() {
+        throw new UnsupportedOperationException("还未实现");
+    }
+
     @Override
     public String getNativeType() {
         return nativeType;
