@@ -49,7 +49,7 @@ public class OracleQueryRewriter extends OffsetFetchQueryRewriter {
             // as one of the only relational databases out there, Oracle has a
             // NUMBER type. For this reason NUMBER would be replaced by the
             // super-type's logic, but we handle it specifically here.
-            super.rewriteColumnTypeInternal("NUMBER", columnSize.getColumnSizeContent());
+            return super.rewriteColumnTypeInternal("NUMBER", columnSize.getColumnSizeContent());
         }
         if (columnType == ColumnType.BOOLEAN || columnType == ColumnType.BIT) {
             // Oracle has no boolean type, but recommends NUMBER(3) or CHAR(1).
