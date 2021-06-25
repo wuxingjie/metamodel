@@ -41,7 +41,7 @@ public class MysqlQueryRewriter extends LimitOffsetQueryRewriter {
         if (columnType == ColumnType.NUMERIC) {
             return super.rewriteColumnType(ColumnType.DECIMAL, columnSize);
         }
-        if (columnType.isLiteral() && columnSize == null) {
+        if (columnType.isLiteral() && columnSize.isEmpty()) {
             if (columnType == ColumnType.STRING || columnType == ColumnType.VARCHAR
                     || columnType == ColumnType.NVARCHAR) {
                 // MySQL requires size to be specified, so instead we choose the

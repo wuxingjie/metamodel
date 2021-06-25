@@ -67,7 +67,7 @@ public interface ColumnBuilder<T extends ColumnBuilder<?>> {
      * @param size 总长度
      * @return a builder object for further column creation.
      */
-    public T ofSize(int size);
+    public T ofSize(Integer size);
 
     /**
      * Defines the size of the created column.
@@ -77,7 +77,7 @@ public interface ColumnBuilder<T extends ColumnBuilder<?>> {
      *            the size of the created column.
      * @return a builder object for further column creation.
      */
-    public T ofSize(int size,int decimalDigits);
+    public T ofSize(Integer size,Integer decimalDigits);
 
     /**
      * Defines if the created column should be nullable or not.

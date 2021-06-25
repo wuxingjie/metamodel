@@ -43,7 +43,7 @@ public class Hive2QueryRewriter extends LimitOffsetQueryRewriter {
 
         // Hive does not support VARCHAR without a width, nor VARCHAR(MAX).
         // Returning max allowable column size instead.
-        if (columnType == ColumnType.VARCHAR && columnSize == null) {
+        if (columnType == ColumnType.VARCHAR && columnSize.isEmpty()) {
             return super.rewriteColumnType(columnType, ColumnSize.of(65535));
         }
         return super.rewriteColumnType(columnType, columnSize);

@@ -88,13 +88,13 @@ final class InterceptableColumnCreationBuilder implements ColumnCreationBuilder 
 	}
 
 	@Override
-	public ColumnCreationBuilder ofSize(int size) {
+	public ColumnCreationBuilder ofSize(Integer size) {
 		_columnCreationBuilder.ofSize(size);
 		return this;
 	}
 
 	@Override
-	public ColumnCreationBuilder ofSize(int size,int decimalDigits) {
+	public ColumnCreationBuilder ofSize(Integer size,Integer decimalDigits) {
 		_columnCreationBuilder.ofSize(size,decimalDigits);
 		return this;
 	}

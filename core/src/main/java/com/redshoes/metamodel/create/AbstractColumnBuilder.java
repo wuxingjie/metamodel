@@ -71,14 +71,14 @@ abstract class AbstractColumnBuilder<T extends ColumnBuilder<?>> implements Colu
     }
 
     @Override
-    public final T ofSize(int size) {
+    public final T ofSize(Integer size) {
         _column.setColumnSize(size);
         _column.setSize(ColumnSize.of(size));
         return getReturnObject();
     }
 
     @Override
-    public final T ofSize(int size,int decimalDigits) {
+    public final T ofSize(Integer size,Integer decimalDigits) {
         _column.setColumnSize(size);
         _column.setDecimalDigits(decimalDigits);
         _column.setSize(ColumnSize.of(size,decimalDigits));

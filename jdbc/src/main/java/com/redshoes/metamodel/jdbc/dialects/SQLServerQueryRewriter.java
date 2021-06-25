@@ -78,7 +78,7 @@ public class SQLServerQueryRewriter extends OffsetFetchQueryRewriter {
         if (columnType == ColumnType.BOOLEAN) {
             return "BIT";
         }
-        if (columnType.isLiteral() && columnSize == null) {
+        if (columnType.isLiteral() && columnSize.isEmpty()) {
             // SQL server provides the convenient MAX parameter. If not
             // specified, the default size of e.g. a VARCHAR is 1!
             return rewriteColumnTypeInternal(columnType.getName(), "MAX");
