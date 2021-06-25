@@ -67,7 +67,7 @@ public interface ColumnBuilder<T extends ColumnBuilder<?>> {
      * @param size 总长度
      * @return a builder object for further column creation.
      */
-    public T ofSize(Integer size);
+    public T ofSize(int size);
 
     /**
      * Defines the size of the created column.

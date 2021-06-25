@@ -23,7 +23,6 @@ import java.util.Date;
 
 import com.redshoes.metamodel.jdbc.JdbcDataContext;
 import com.redshoes.metamodel.schema.Column;
-import com.redshoes.metamodel.schema.ColumnSize;
 import com.redshoes.metamodel.schema.ColumnType;
 import com.redshoes.metamodel.util.DateUtils;
 import com.redshoes.metamodel.query.FilterItem;
@@ -71,19 +70,19 @@ public class SQLServerQueryRewriter extends OffsetFetchQueryRewriter {
     }
 
     @Override
-    public String rewriteColumnType(ColumnType columnType, ColumnSize columnSize) {
+    public String rewriteColumnType(ColumnType columnType, Integer columnSize,Integer decimalDigits) {
         if (columnType == ColumnType.DOUBLE) {
             return "FLOAT";
         }
         if (columnType == ColumnType.BOOLEAN) {
             return "BIT";
         }
-        if (columnType.isLiteral() && columnSize.isEmpty()) {
+        if (columnType.isLiteral() && columnSize == null) {
             // SQL server provides the convenient MAX parameter. If not
             // specified, the default size of e.g. a VARCHAR is 1!
             return rewriteColumnTypeInternal(columnType.getName(), "MAX");
         }
-        return super.rewriteColumnType(columnType, columnSize);
+        return super.rewriteColumnType(columnType, columnSize, decimalDigits);
     }
 
     @Override

@@ -34,7 +34,6 @@ import java.util.List;
 
 import com.redshoes.metamodel.jdbc.JdbcDataContext;
 import com.redshoes.metamodel.schema.Column;
-import com.redshoes.metamodel.schema.ColumnSize;
 import com.redshoes.metamodel.schema.ColumnType;
 import com.redshoes.metamodel.schema.ColumnTypeImpl;
 import com.redshoes.metamodel.util.FileHelper;
@@ -116,8 +115,8 @@ public abstract class AbstractQueryRewriter implements IQueryRewriter {
     }
 
     @Override
-    public String rewriteColumnType(ColumnType columnType, ColumnSize columnSize) {
-        return rewriteColumnTypeInternal(columnType.toString(), columnSize.getColumnSizeContent());
+    public String rewriteColumnType(ColumnType columnType, Integer columnSize,Integer decimalDigits) {
+        return rewriteColumnTypeInternal(columnType.toString(), getSizeContent(columnSize,decimalDigits));
     }
 
     protected String rewriteColumnTypeInternal(String columnType, Object columnParameter) {

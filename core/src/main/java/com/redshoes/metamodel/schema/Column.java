@@ -94,16 +94,6 @@ public interface Column extends Comparable<Column>, Serializable, NamedStructure
     public Integer getDecimalDigits();
 
     /**
-     * 获得字段长度表达式 eg. decimal(38,19)
-     * @return String
-     */
-    public String getSizeContent();
-    /**
-     *  获得 ColumnSize
-     * @return ColumnSize
-     */
-    public ColumnSize getSizeObj();
-    /**
      * Gets the native type of this column. A native type is the name of the
      * data type as defined in the datastore.
      * 

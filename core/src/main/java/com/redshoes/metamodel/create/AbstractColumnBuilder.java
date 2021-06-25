@@ -19,7 +19,6 @@
 package com.redshoes.metamodel.create;
 
 import com.redshoes.metamodel.schema.Column;
-import com.redshoes.metamodel.schema.ColumnSize;
 import com.redshoes.metamodel.schema.ColumnType;
 import com.redshoes.metamodel.schema.MutableColumn;
 
@@ -50,7 +49,6 @@ abstract class AbstractColumnBuilder<T extends ColumnBuilder<?>> implements Colu
     public final T like(Column column) {
         _column.setColumnSize(column.getColumnSize());
         _column.setDecimalDigits(column.getDecimalDigits());
-        _column.setSize(column.getSizeObj());
         _column.setNativeType(column.getNativeType());
         _column.setType(column.getType());
         _column.setNullable(column.isNullable());
@@ -71,9 +69,8 @@ abstract class AbstractColumnBuilder<T extends ColumnBuilder<?>> implements Colu
     }
 
     @Override
-    public final T ofSize(Integer size) {
+    public final T ofSize(int size) {
         _column.setColumnSize(size);
-        _column.setSize(ColumnSize.of(size));
         return getReturnObject();
     }
 
@@ -81,7 +78,6 @@ abstract class AbstractColumnBuilder<T extends ColumnBuilder<?>> implements Colu
     public final T ofSize(Integer size,Integer decimalDigits) {
         _column.setColumnSize(size);
         _column.setDecimalDigits(decimalDigits);
-        _column.setSize(ColumnSize.of(size,decimalDigits));
         return getReturnObject();
     }
 

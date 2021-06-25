@@ -60,12 +60,12 @@ public class SQLServerQueryRewriterTest extends TestCase {
     }
 
     public void testRewriteColumnTypeDouble() throws Exception {
-        assertEquals("FLOAT", qr.rewriteColumnType(ColumnType.DOUBLE, null));
+        assertEquals("FLOAT", qr.rewriteColumnType(ColumnType.DOUBLE, null, null));
     }
 
     public void testRewriteColumnTypeVarchar() throws Exception {
-        assertEquals("VARCHAR(128)", qr.rewriteColumnType(ColumnType.VARCHAR, ColumnSize.of(128)));
-        assertEquals("VARCHAR(MAX)", qr.rewriteColumnType(ColumnType.VARCHAR, null));
+        assertEquals("VARCHAR(128)", qr.rewriteColumnType(ColumnType.VARCHAR, 128, null));
+        assertEquals("VARCHAR(MAX)", qr.rewriteColumnType(ColumnType.VARCHAR, null, null));
     }
 
     public void testRewriteFromItem() throws Exception {

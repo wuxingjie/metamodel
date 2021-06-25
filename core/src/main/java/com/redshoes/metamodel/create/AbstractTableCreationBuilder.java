@@ -115,8 +115,8 @@ public abstract class AbstractTableCreationBuilder<U extends UpdateCallback> imp
             if (type != null) {
                 sb.append(' ');
                 sb.append(type.toString());
-                final String columnSizeContent = column.getSizeContent();
-                if(!(columnSizeContent == null || columnSizeContent.length() <= 0)){
+                final String columnSizeContent =  getSizeContent(column.getColumnSize(),column.getDecimalDigits());
+                if(columnSizeContent != null ){
                     sb.append('(');
                     sb.append(columnSizeContent);
                     sb.append(')');
@@ -145,5 +145,17 @@ public abstract class AbstractTableCreationBuilder<U extends UpdateCallback> imp
         }
         sb.append(")");
         return sb.toString();
+    }
+     private String getSizeContent(Integer columnSize,Integer decimalDigits){
+        if(columnSize == null){
+            return null;
+        }
+        StringBuilder sizeContent = new StringBuilder();
+        sizeContent.append(columnSize.intValue());
+        if (decimalDigits != null) {
+            sizeContent.append(",");
+            sizeContent.append(decimalDigits.intValue());
+        }
+        return sizeContent.toString();
     }
 }

@@ -96,19 +96,20 @@ final class JdbcCreateTableBuilder extends AbstractTableCreationBuilder<JdbcUpda
             sb.append(' ');
             final String nativeType = column.getNativeType();
             final Integer columnSize = column.getColumnSize();
-            final String columnSizeContent = column.getSizeContent();
+            final Integer decimalDigits = column.getDecimalDigits();
+            ColumnType columnType = column.getType();
+            String columnTypeString = queryRewriter.rewriteColumnType(columnType, columnSize, decimalDigits);
             if (nativeType == null) {
-                ColumnType columnType = column.getType();
                 if (columnType == null) {
                     columnType = ColumnType.VARCHAR;
+                    columnTypeString = queryRewriter.rewriteColumnType(columnType, columnSize, decimalDigits);
                 }
-                final String columnTypeString = queryRewriter.rewriteColumnType(columnType, column.getSizeObj());
                 sb.append(columnTypeString);
             } else {
                 sb.append(nativeType);
-                if(!(columnSizeContent == null || columnSizeContent.length() <= 0)){
+                if(columnSize != null){
                     sb.append('(');
-                    sb.append(columnSize.intValue());
+                    sb.append(columnTypeString);
                     sb.append(')');
                 }
             }
@@ -136,7 +137,6 @@ final class JdbcCreateTableBuilder extends AbstractTableCreationBuilder<JdbcUpda
         }
         sb.append(")");
 
-        logger.info("---------------> table created!",sb.toString());
         return sb.toString();
     }
 

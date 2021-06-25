@@ -38,7 +38,6 @@ public class MutableColumn extends AbstractColumn implements Serializable {
     private String _remarks;
     private boolean _indexed = false;
     private boolean _primaryKey = false;
-    private ColumnSize _size = ColumnSize.EMPTY;
     private Integer _columnSize = null;
     private Integer _decimalDigits = null;
     private String _nativeType = null;
@@ -76,7 +75,6 @@ public class MutableColumn extends AbstractColumn implements Serializable {
         this(name, type, table, columnNumber, nullable);
         setColumnSize(columnSize);
         setDecimalDigits(null);
-        setSize(ColumnSize.of(columnSize));
         setNativeType(nativeType);
         setRemarks(remarks);
         setIndexed(indexed);
@@ -88,7 +86,6 @@ public class MutableColumn extends AbstractColumn implements Serializable {
         this(name, type, table, columnNumber, nullable);
         setColumnSize(columnSize);
         setDecimalDigits(decimalDigits);
-        setSize(ColumnSize.of(columnSize,decimalDigits));
         setNativeType(nativeType);
         setRemarks(remarks);
         setIndexed(indexed);
@@ -165,18 +162,6 @@ public class MutableColumn extends AbstractColumn implements Serializable {
         return _decimalDigits;
     }
 
-    @Override
-    public String getSizeContent() {
-        if(getSize() != null){
-            return this._size.getColumnSizeContent();
-        }
-        return null;
-    }
-
-    @Override
-    public ColumnSize getSizeObj() {
-        return getSize();
-    }
 
     public MutableColumn setDecimalDigits(Integer decimalDigits) {
         _decimalDigits = decimalDigits;
@@ -191,13 +176,6 @@ public class MutableColumn extends AbstractColumn implements Serializable {
     public MutableColumn setColumnSize(Integer columnSize) {
         _columnSize = columnSize;
         return this;
-    }
-    public ColumnSize getSize() {
-        return _size;
-    }
-
-    public void setSize(ColumnSize _size) {
-        this._size = _size;
     }
     @Override
     public String getNativeType() {

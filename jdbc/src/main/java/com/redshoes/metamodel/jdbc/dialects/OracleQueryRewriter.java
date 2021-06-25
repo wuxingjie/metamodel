@@ -20,7 +20,6 @@ package com.redshoes.metamodel.jdbc.dialects;
 
 import com.redshoes.metamodel.jdbc.JdbcDataContext;
 import com.redshoes.metamodel.query.FilterItem;
-import com.redshoes.metamodel.schema.ColumnSize;
 import com.redshoes.metamodel.schema.ColumnType;
 
 /**
@@ -44,12 +43,12 @@ public class OracleQueryRewriter extends OffsetFetchQueryRewriter {
     }
 
     @Override
-    public String rewriteColumnType(ColumnType columnType, ColumnSize columnSize) {
+    public String rewriteColumnType(ColumnType columnType, Integer columnSize,Integer decimalDigits) {
         if (columnType == ColumnType.NUMBER || columnType == ColumnType.NUMERIC || columnType == ColumnType.DECIMAL) {
             // as one of the only relational databases out there, Oracle has a
             // NUMBER type. For this reason NUMBER would be replaced by the
             // super-type's logic, but we handle it specifically here.
-            return super.rewriteColumnTypeInternal("NUMBER", columnSize.getColumnSizeContent());
+            return super.rewriteColumnTypeInternal("NUMBER", getSizeContent(columnSize, decimalDigits));
         }
         if (columnType == ColumnType.BOOLEAN || columnType == ColumnType.BIT) {
             // Oracle has no boolean type, but recommends NUMBER(3) or CHAR(1).
@@ -86,9 +85,9 @@ public class OracleQueryRewriter extends OffsetFetchQueryRewriter {
 
         // Oracle has no "time only" data type but 'date' also includes time
         if (columnType == ColumnType.TIME) {
-            super.rewriteColumnType(ColumnType.DATE, columnSize);
+            super.rewriteColumnType(ColumnType.DATE, columnSize, decimalDigits);
         }
-        return super.rewriteColumnType(columnType, columnSize);
+        return super.rewriteColumnType(columnType, columnSize, decimalDigits);
     }
 
     @Override

@@ -18,7 +18,6 @@
  */
 package com.redshoes.metamodel.jdbc.dialects;
 
-import com.redshoes.metamodel.schema.ColumnSize;
 import com.redshoes.metamodel.schema.ColumnType;
 import com.redshoes.metamodel.jdbc.JdbcDataContext;
 
@@ -37,11 +36,11 @@ public class MysqlQueryRewriter extends LimitOffsetQueryRewriter {
     }
 
     @Override
-    public String rewriteColumnType(ColumnType columnType, ColumnSize columnSize) {
+    public String rewriteColumnType(ColumnType columnType, Integer columnSize,Integer decimalDigits) {
         if (columnType == ColumnType.NUMERIC) {
-            return super.rewriteColumnType(ColumnType.DECIMAL, columnSize);
+            return super.rewriteColumnType(ColumnType.DECIMAL, columnSize ,decimalDigits);
         }
-        if (columnType.isLiteral() && columnSize.isEmpty()) {
+        if (columnType.isLiteral() && columnSize == null) {
             if (columnType == ColumnType.STRING || columnType == ColumnType.VARCHAR
                     || columnType == ColumnType.NVARCHAR) {
                 // MySQL requires size to be specified, so instead we choose the
@@ -49,6 +48,6 @@ public class MysqlQueryRewriter extends LimitOffsetQueryRewriter {
                 return "TEXT";
             }
         }
-        return super.rewriteColumnType(columnType, columnSize);
+        return super.rewriteColumnType(columnType, columnSize, decimalDigits);
     }
 }

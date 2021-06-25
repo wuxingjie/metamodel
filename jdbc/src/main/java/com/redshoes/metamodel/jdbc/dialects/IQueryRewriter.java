@@ -24,7 +24,6 @@ import java.sql.SQLException;
 import java.sql.Types;
 
 import com.redshoes.metamodel.schema.Column;
-import com.redshoes.metamodel.schema.ColumnSize;
 import com.redshoes.metamodel.schema.ColumnType;
 import com.redshoes.metamodel.jdbc.JdbcDataContext;
 import com.redshoes.metamodel.query.AggregateFunction;
@@ -49,6 +48,19 @@ public interface IQueryRewriter {
     public String rewriteQuery(Query query);
 
     public String rewriteFilterItem(FilterItem whereItem);
+
+    default String getSizeContent(Integer columnSize,Integer decimalDigits){
+        if(columnSize == null){
+            return null;
+        }
+        StringBuilder sizeContent = new StringBuilder();
+        sizeContent.append(columnSize.intValue());
+        if (decimalDigits != null) {
+            sizeContent.append(",");
+            sizeContent.append(decimalDigits.intValue());
+        }
+        return sizeContent.toString();
+    }
 
     /**
      * Method which handles the action of setting a parameterized value on a
@@ -137,10 +149,12 @@ public interface IQueryRewriter {
      * @param columnType
      *            the (non-null) {@link ColumnType} to rewrite
      * @param columnSize
-     *            字段长度对象包含总长度与精度位 eg. decimal(38,19)
+     *            总长度
+     * @param decimalDigits
+     *            小数位
      * @return
      */
-    public String rewriteColumnType(ColumnType columnType, ColumnSize columnSize);
+    public String rewriteColumnType(ColumnType columnType, Integer columnSize,Integer decimalDigits);
 
     /**
      * Gets the column type for a specific JDBC type (as defined in

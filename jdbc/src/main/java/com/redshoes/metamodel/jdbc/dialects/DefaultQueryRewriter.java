@@ -26,7 +26,6 @@ import java.util.ListIterator;
 import java.util.Set;
 
 import com.redshoes.metamodel.jdbc.JdbcDataContext;
-import com.redshoes.metamodel.schema.ColumnSize;
 import com.redshoes.metamodel.schema.ColumnType;
 import com.redshoes.metamodel.util.CollectionUtils;
 import com.redshoes.metamodel.query.AggregateFunction;
@@ -89,16 +88,16 @@ public class DefaultQueryRewriter extends AbstractQueryRewriter {
     }
 
     @Override
-    public String rewriteColumnType(ColumnType columnType, ColumnSize columnSize) {
+    public String rewriteColumnType(ColumnType columnType, Integer columnSize,Integer decimalDigits) {
         if (columnType == ColumnType.STRING) {
             // convert STRING to VARCHAR as the default SQL type for strings
-            return rewriteColumnType(ColumnType.VARCHAR, columnSize);
+            return rewriteColumnType(ColumnType.VARCHAR, columnSize,decimalDigits);
         }
         if (columnType == ColumnType.NUMBER) {
             // convert NUMBER to FLOAT as the default SQL type for numbers
-            return rewriteColumnType(ColumnType.FLOAT, columnSize);
+            return rewriteColumnType(ColumnType.FLOAT, columnSize,decimalDigits);
         }
-        return super.rewriteColumnType(columnType, columnSize);
+        return super.rewriteColumnType(columnType, columnSize,decimalDigits);
     }
 
     protected boolean needsQuoting(String alias, String identifierQuoteString) {

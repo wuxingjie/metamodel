@@ -47,10 +47,10 @@ public class MysqlQueryRewriterTest extends TestCase {
 	
 	public void testRewriteLiteralColumnTypesWithoutArgs() throws Exception {
 	    MysqlQueryRewriter qr = new MysqlQueryRewriter(null);
-        assertEquals("TEXT", qr.rewriteColumnType(ColumnType.VARCHAR, null));
-        assertEquals("TEXT", qr.rewriteColumnType(ColumnType.NVARCHAR, null));
-        assertEquals("TEXT", qr.rewriteColumnType(ColumnType.STRING, null));
-        assertEquals("CHAR", qr.rewriteColumnType(ColumnType.CHAR, null));
-        assertEquals("NCHAR", qr.rewriteColumnType(ColumnType.NCHAR, null));
+        assertEquals("TEXT", qr.rewriteColumnType(ColumnType.VARCHAR, null, null));
+        assertEquals("TEXT", qr.rewriteColumnType(ColumnType.NVARCHAR, null, null));
+        assertEquals("TEXT", qr.rewriteColumnType(ColumnType.STRING, null, null));
+        assertEquals("CHAR", qr.rewriteColumnType(ColumnType.CHAR, null, null));
+        assertEquals("NCHAR", qr.rewriteColumnType(ColumnType.NCHAR, null, null));
     }
 }

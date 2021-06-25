@@ -59,7 +59,7 @@ public class PostgresqlQueryRewriter extends LimitOffsetQueryRewriter {
     }
 
     @Override
-    public String rewriteColumnType(ColumnType columnType, ColumnSize columnSize) {
+    public String rewriteColumnType(ColumnType columnType, Integer columnSize,Integer decimalDigits) {
         if (columnType == ColumnType.BLOB) {
             return "bytea";
         }
@@ -72,7 +72,7 @@ public class PostgresqlQueryRewriter extends LimitOffsetQueryRewriter {
         if (columnType == ColumnType.MAP) {
             return "jsonb";
         }
-        return super.rewriteColumnType(columnType, columnSize);
+        return super.rewriteColumnType(columnType, columnSize, decimalDigits);
     }
 
     @Override
