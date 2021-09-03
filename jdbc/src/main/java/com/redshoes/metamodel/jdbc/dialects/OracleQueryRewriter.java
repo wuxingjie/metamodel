@@ -20,7 +20,11 @@ package com.redshoes.metamodel.jdbc.dialects;
 
 import com.redshoes.metamodel.jdbc.JdbcDataContext;
 import com.redshoes.metamodel.query.FilterItem;
+import com.redshoes.metamodel.query.FromItem;
+import com.redshoes.metamodel.query.Query;
 import com.redshoes.metamodel.schema.ColumnType;
+import com.redshoes.metamodel.schema.Schema;
+import com.redshoes.metamodel.schema.Table;
 
 /**
  * Query rewriter for Oracle
@@ -99,4 +103,21 @@ public class OracleQueryRewriter extends OffsetFetchQueryRewriter {
             return super.rewriteFilterItem(item);
         }
     }
+
+    @Override
+    protected String rewriteFromItem(Query query, FromItem item) {
+        String result = super.rewriteFromItem(query, item);
+        Table table = item.getTable();
+        if (table != null) {
+            Schema schema = table.getSchema();
+            if (schema != null) {
+                String schemaName = schema.getName();
+                if (schemaName != null && !schemaName.isEmpty()) {
+                    result = result.replaceFirst(schemaName, '\"' + schema.getName() + '\"');
+                }
+            }
+        }
+        return result;
+    }
+
 }
