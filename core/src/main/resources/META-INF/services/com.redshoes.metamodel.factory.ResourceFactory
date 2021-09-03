@@ -1,0 +1,4 @@
+com.redshoes.metamodel.factory.FileResourceFactory
+com.redshoes.metamodel.factory.ClasspathResourceFactory
+com.redshoes.metamodel.factory.UrlResourceFactory
+com.redshoes.metamodel.factory.InMemoryResourceFactory

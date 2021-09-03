@@ -45,10 +45,16 @@ under the License.
 		<developerConnection>scm:git:https://gitbox.apache.org/repos/asf/metamodel.git</developerConnection>
 		<tag>HEAD</tag>
 	</scm>
-	<groupId>org.apache.metamodel</groupId>
+	<groupId>com.redshoes</groupId>
 	<artifactId>MetaModel</artifactId>
-	<version>5.3.4-SNAPSHOT</version>
+	<version>5.3.4</version>
 	<name>MetaModel</name>
+
+<!--	<distributionManagement>-->
+<!--		<relocation>-->
+<!--			<groupId>com.redshoes</groupId>-->
+<!--		</relocation>-->
+<!--	</distributionManagement>-->
 	<description>MetaModel is a library that encapsulates the differences and enhances 
 		the capabilities of different datastores. Rich querying abilities are
 		offered to datastores that do not otherwise support advanced querying
@@ -174,18 +180,18 @@ under the License.
 			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
 		</license>
 	</licenses>
-	<distributionManagement>
-		<repository>
-			<id>apache.releases.https</id>
-			<name>Apache Release Distribution Repository</name>
-			<url>https://repository.apache.org/service/local/staging/deploy/maven2</url>
-		</repository>
-		<snapshotRepository>
-			<id>apache.snapshots.https</id>
-			<name>Apache Development Snapshot Repository</name>
-			<url>https://repository.apache.org/content/repositories/snapshots</url>
-		</snapshotRepository>
-	</distributionManagement>
+<!--	<distributionManagement>-->
+<!--		<repository>-->
+<!--			<id>apache.releases.https</id>-->
+<!--			<name>Apache Release Distribution Repository</name>-->
+<!--			<url>https://repository.apache.org/service/local/staging/deploy/maven2</url>-->
+<!--		</repository>-->
+<!--		<snapshotRepository>-->
+<!--			<id>apache.snapshots.https</id>-->
+<!--			<name>Apache Development Snapshot Repository</name>-->
+<!--			<url>https://repository.apache.org/content/repositories/snapshots</url>-->
+<!--		</snapshotRepository>-->
+<!--	</distributionManagement>-->
 
 	<repositories>
 		<repository>
@@ -291,7 +297,22 @@ under the License.
 					<doclint>none</doclint>
 				</configuration>
 			</plugin>
-
+			<!-- 要将源码放上去，需要加入这个插件 -->
+			<plugin>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>3.2.1</version>
+				<configuration>
+					<attach>true</attach>
+				</configuration>
+				<executions>
+					<execution>
+						<phase>compile</phase>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 			<plugin>
 				<!-- enforce certain banned dependencies -->
 				<groupId>org.apache.maven.plugins</groupId>
@@ -442,7 +463,13 @@ under the License.
 						</excludes>
 					</configuration>
 				</plugin>
-
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>versions-maven-plugin</artifactId>
+					<configuration>
+						<generateBackupPoms>false</generateBackupPoms>
+					</configuration>
+				</plugin>
 			</plugins>
 		</pluginManagement>
 	</build>
